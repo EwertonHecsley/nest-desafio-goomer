@@ -1,7 +1,9 @@
 import { Module } from '@nestjs/common';
+import { RestaurantModule } from './domain/restaurant/restaurant.module';
+
 
 @Module({
-  imports: [],
+  imports: [RestaurantModule],
   controllers: [],
   providers: [],
 })
