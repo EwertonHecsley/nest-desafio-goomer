@@ -1,10 +1,11 @@
 import Entity from "src/core/entities/entity.generic";
 import Identity from "src/core/entities/identity.generic";
+import Price from "src/core/value-object/price";
 import { Optional } from "src/utils/types/optional.types";
 
 type ProductType = {
     name: string;
-    price: number;
+    price: Price;
     category: string;
     image: string;
     promotion: boolean;
@@ -15,6 +16,7 @@ export default class Product extends Entity<ProductType> {
         return new Product(
             {
                 ...data,
+                price: Price.create(data.price.value),
                 image: data.image ?? 'no image'
             }
         ), id
@@ -24,7 +26,7 @@ export default class Product extends Entity<ProductType> {
         return this.attibutes.name;
     }
 
-    get price(): number {
+    get price(): Price {
         return this.attibutes.price;
     }
 
@@ -44,7 +46,7 @@ export default class Product extends Entity<ProductType> {
         this.attibutes.name = name;
     }
 
-    set price(price: number) {
+    set price(price: Price) {
         this.attibutes.price = price;
     }
 
