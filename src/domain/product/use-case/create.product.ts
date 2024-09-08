@@ -16,8 +16,7 @@ type Response = Either<null, Product>
 export class CreateProduct {
     constructor(private productRepository: ProductRepository) { }
 
-    async execute(data: Request): Promise<Response> {
-        const { name, price, category, image, promotion } = data;
+    async execute({ name, price, category, image, promotion }: Request): Promise<Response> {
 
         const product = Product.create(
             {
