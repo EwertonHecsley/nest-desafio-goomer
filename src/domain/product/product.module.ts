@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
 import { ProductRepository } from './repository/product.repository';
 import { PrismaModule } from 'src/infra/database/prisma/prisma.module';
-import { ProductController } from './controllers/list.product.controller';
+import { ProductController } from './controllers/product.controller';
 import { ListProducts } from './use-case/list.products';
+import { CreateProduct } from './use-case/create.product';
 
 @Module({
   imports: [PrismaModule],
@@ -13,6 +14,15 @@ import { ListProducts } from './use-case/list.products';
         productRepository: ProductRepository
       ) => {
         return new ListProducts(productRepository);
+      },
+      inject: [ProductRepository]
+    },
+    {
+      provide: CreateProduct,
+      useFactory: (
+        productRepository: ProductRepository
+      ) => {
+        return new CreateProduct(productRepository);
       },
       inject: [ProductRepository]
     }
