@@ -7,7 +7,7 @@ export default class Identity {
         this.value = value ?? randomUUID().toString();
     }
 
-    get valueId(): string {
+    get valueId() {
         return this.value;
     }
 };

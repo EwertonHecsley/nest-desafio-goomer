@@ -21,34 +21,34 @@ export default class Restaurant extends Entity<RestaurantType> {
     }
 
     get name(): string {
-        return this.attibutes.name;
+        return this.attributes.name;
     }
 
     get address(): string {
-        return this.attibutes.address;
+        return this.attributes.address;
     }
 
     get openningHours(): string {
-        return this.attibutes.openningHours;
+        return this.attributes.openningHours;
     }
 
     get image(): string {
-        return this.attibutes.image;
+        return this.attributes.image;
     }
 
     set name(name: string) {
-        this.attibutes.name = name;
+        this.attributes.name = name;
     }
 
     set address(address: string) {
-        this.attibutes.address = address;
+        this.attributes.address = address;
     }
 
     set openningHours(openningHours: string) {
-        this.attibutes.openningHours = openningHours;
+        this.attributes.openningHours = openningHours;
     }
 
     set image(image: string) {
-        this.attibutes.image = image;
+        this.attributes.image = image;
     }
 }
