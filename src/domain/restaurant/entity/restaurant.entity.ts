@@ -15,7 +15,8 @@ export default class Restaurant extends Entity<RestaurantType> {
             {
                 ...data,
                 image: data.image ?? 'no image'
-            }
+            },
+            id
         );
     }
 
