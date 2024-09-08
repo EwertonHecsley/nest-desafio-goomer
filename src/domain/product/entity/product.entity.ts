@@ -24,42 +24,42 @@ export default class Product extends Entity<ProductType> {
     }
 
     get name(): string {
-        return this.attibutes.name;
+        return this.attributes.name;
     }
 
     get price(): Price {
-        return this.attibutes.price;
+        return this.attributes.price;
     }
 
     get category(): string {
-        return this.attibutes.category;
+        return this.attributes.category;
     }
 
     get image(): string {
-        return this.attibutes.image;
+        return this.attributes.image;
     }
 
     get promotion(): boolean {
-        return this.attibutes.promotion;
+        return this.attributes.promotion;
     }
 
     set name(name: string) {
-        this.attibutes.name = name;
+        this.attributes.name = name;
     }
 
     set price(price: Price) {
-        this.attibutes.price = price;
+        this.attributes.price = price;
     }
 
     set category(category: string) {
-        this.attibutes.category = category;
+        this.attributes.category = category;
     }
 
     set image(image: string) {
-        this.attibutes.image = image;
+        this.attributes.image = image;
     }
 
     set promotion(promotion: boolean) {
-        this.attibutes.promotion = promotion;
+        this.attributes.promotion = promotion;
     }
 }

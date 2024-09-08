@@ -6,7 +6,7 @@ import { ProductPrismaMapper } from "../prisma/mappers/product.prisma.mapper";
 
 @Injectable()
 export class ProductPrismaRepository implements ProductRepository {
-    constructor(private readonly prismaService: PrismaService) { }
+    constructor(private prismaService: PrismaService) { }
 
     async create(product: Product): Promise<Product> {
         const data = ProductPrismaMapper.toDatabase(product);
@@ -17,10 +17,8 @@ export class ProductPrismaRepository implements ProductRepository {
     }
 
     async listAll(): Promise<Product[]> {
-        const products = await this.prismaService.product.findMany();
+        const productsDatabase = await this.prismaService.product.findMany();
 
-        return products.map((element) => {
-            return ProductPrismaMapper.toDomain(element);
-        });
+        return productsDatabase.map(ProductPrismaMapper.toDomain);
     }
 }
