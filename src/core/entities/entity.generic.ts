@@ -2,11 +2,11 @@ import Identity from "./identity.generic";
 
 export default abstract class Entity<T> {
     private entityId: Identity;
-    protected attibutes: T;
+    protected attributes: T;
 
     protected constructor(attributes: T, id?: Identity) {
         this.entityId = id ?? new Identity();
-        this.attibutes = attributes;
+        this.attributes = attributes;
     }
 
     get id(): Identity {

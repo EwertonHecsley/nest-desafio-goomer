@@ -12,14 +12,15 @@ type ProductType = {
 }
 
 export default class Product extends Entity<ProductType> {
-    static create(data: Optional<ProductType, 'image'>, id?: Identity) {
+    static create(data: Optional<ProductType, 'image'>, id?: Identity): Product {
         return new Product(
             {
                 ...data,
                 price: Price.create(data.price.value),
                 image: data.image ?? 'no image'
-            }
-        ), id
+            },
+            id
+        );
     }
 
     get name(): string {
