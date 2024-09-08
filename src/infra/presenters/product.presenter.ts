@@ -5,7 +5,7 @@ export class ProductPresenter {
         return {
             id: entity.id.valueId,
             name: entity.name,
-            price: entity.price.value,
+            price: entity.price.formattedPriceBRL(),
             category: entity.category,
             image: entity.image,
             promotion: entity.promotion
