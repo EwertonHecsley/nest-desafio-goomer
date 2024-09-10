@@ -3,6 +3,7 @@ import { Response } from 'express';
 import { ProductPresenter } from 'src/infra/presenters/product.presenter';
 import { ListProducts } from '../use-case/list.products';
 import { CreateProduct } from '../use-case/create.product';
+import { ProductDto } from '../dto/product.dto';
 
 @Controller('product')
 export class ProductController {
@@ -12,7 +13,7 @@ export class ProductController {
     ) { }
 
     @Post()
-    async create(@Body() dataBody: any, @Res() response: Response) {
+    async create(@Body() dataBody: ProductDto, @Res() response: Response) {
         const result = await this.createService.execute(dataBody);
 
         if (result.isLeft()) {
