@@ -16,7 +16,7 @@ export class FindById {
         const product = await this.productRepository.findById(id);
 
         if (!product) {
-            return left(new HttpException(400, "Not Found"));
+            return left(new HttpException(404, "Not Found"));
         }
 
         return right(product);

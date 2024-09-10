@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpStatus, Param, Post, Res, BadRequestException } from '@nestjs/common';
+import { Body, Controller, Get, HttpStatus, Param, Post, Res, BadRequestException, Delete } from '@nestjs/common';
 import { Response } from 'express';
 import { ProductPresenter } from 'src/infra/presenters/product.presenter';
 import { ListProducts } from '../use-case/list.products';
@@ -6,13 +6,15 @@ import { CreateProduct } from '../use-case/create.product';
 import { ProductDto } from '../dto/product.dto';
 import { FindById } from '../use-case/findById.product';
 import { HttpException } from 'src/errors/generic.httpException';
+import { DeleteProduct } from '../use-case/delete.product';
 
 @Controller('product')
 export class ProductController {
     constructor(
         private readonly listService: ListProducts,
         private readonly createService: CreateProduct,
-        private readonly findByIdService: FindById
+        private readonly findByIdService: FindById,
+        private readonly deleteService: DeleteProduct
     ) { }
 
     @Post()
@@ -28,7 +30,7 @@ export class ProductController {
         } catch (error) {
 
             if (error instanceof BadRequestException) {
-                return response.status(HttpStatus.BAD_GATEWAY).json(error.message);
+                return response.status(HttpStatus.BAD_GATEWAY).json({ message: error.message });
             } else {
                 return response.status(HttpStatus.INTERNAL_SERVER_ERROR).json('An error occurred while creating the product.');
             }
@@ -49,7 +51,7 @@ export class ProductController {
         } catch (error) {
 
             if (error instanceof BadRequestException) {
-                return response.status(HttpStatus.BAD_REQUEST).json(error.message);
+                return response.status(HttpStatus.BAD_REQUEST).json({ message: error.message });
             } else {
                 return response.status(HttpStatus.INTERNAL_SERVER_ERROR).json('An error occurred while fetching products.');
             }
@@ -62,20 +64,40 @@ export class ProductController {
             const result = await this.findByIdService.execute({ id });
 
             if (result.isLeft()) {
-                throw new HttpException(404, result.value.message);
+                throw result.value;
             }
 
             return response.status(HttpStatus.OK).json(ProductPresenter.toHttp(result.value));
 
         } catch (error) {
             if (error instanceof HttpException) {
-                return response.status(HttpStatus.NOT_FOUND).json(error.message);
+                return response.status(HttpStatus.NOT_FOUND).json({ message: error.message });
 
             } else if (error instanceof BadRequestException) {
-                return response.status(HttpStatus.BAD_REQUEST).json(error.message);
+                return response.status(HttpStatus.BAD_REQUEST).json({ message: error.message });
 
             } else {
-                return response.status(HttpStatus.INTERNAL_SERVER_ERROR).json(error.message);
+                return response.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: error.message });
+            }
+        }
+    }
+
+    @Delete(":id")
+    async deleteById(@Param('id') id: string, @Res() response: Response) {
+        try {
+            await this.deleteService.execute({ id });
+
+            return response.status(HttpStatus.NO_CONTENT).json();
+
+        } catch (error) {
+            if (error instanceof HttpException) {
+                return response.status(HttpStatus.NOT_FOUND).json({ message: error.message });
+
+            } else if (error instanceof BadRequestException) {
+                return response.status(HttpStatus.BAD_REQUEST).json({ message: error.message });
+
+            } else {
+                return response.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: error.message });
             }
         }
     }
