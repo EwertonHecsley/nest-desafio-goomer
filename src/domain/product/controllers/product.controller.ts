@@ -5,7 +5,7 @@ import { ListProducts } from '../use-case/list.products';
 import { CreateProduct } from '../use-case/create.product';
 import { ProductDto } from '../dto/product.dto';
 import { FindById } from '../use-case/findById.product';
-import { NotFoundError } from 'src/errors/custom/notFound.error';
+import { HttpException } from 'src/errors/generic.httpException';
 
 @Controller('product')
 export class ProductController {
@@ -49,7 +49,7 @@ export class ProductController {
         } catch (error) {
 
             if (error instanceof BadRequestException) {
-                return response.status(HttpStatus.BAD_GATEWAY).json(error.message);
+                return response.status(HttpStatus.BAD_REQUEST).json(error.message);
             } else {
                 return response.status(HttpStatus.INTERNAL_SERVER_ERROR).json('An error occurred while fetching products.');
             }
@@ -62,15 +62,18 @@ export class ProductController {
             const result = await this.findByIdService.execute({ id });
 
             if (result.isLeft()) {
-                throw new BadRequestException(result.value);
+                throw new HttpException(404, result.value.message);
             }
 
             return response.status(HttpStatus.OK).json(ProductPresenter.toHttp(result.value));
+
         } catch (error) {
-            if (error instanceof NotFoundError) {
-                return response.status(HttpStatus.NOT_FOUND).json();
+            if (error instanceof HttpException) {
+                return response.status(HttpStatus.NOT_FOUND).json(error.message);
+
             } else if (error instanceof BadRequestException) {
-                return response.status(HttpStatus.BAD_GATEWAY).json(error.message);
+                return response.status(HttpStatus.BAD_REQUEST).json(error.message);
+
             } else {
                 return response.status(HttpStatus.INTERNAL_SERVER_ERROR).json(error.message);
             }

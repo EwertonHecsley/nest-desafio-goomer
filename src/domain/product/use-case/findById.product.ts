@@ -1,13 +1,13 @@
 import { Either, left, right } from "src/errors/either/either";
 import Product from "../entity/product.entity";
 import { ProductRepository } from "../repository/product.repository";
-import { NotFoundError } from "src/errors/custom/notFound.error";
+import { HttpException } from "src/errors/generic.httpException";
 
 type Request = {
     id: string;
 }
 
-type Response = Either<NotFoundError, Product>
+type Response = Either<HttpException, Product>
 
 export class FindById {
     constructor(private productRepository: ProductRepository) { }
@@ -16,7 +16,7 @@ export class FindById {
         const product = await this.productRepository.findById(id);
 
         if (!product) {
-            return left(new NotFoundError());
+            return left(new HttpException(400, "Not Found"));
         }
 
         return right(product);
