@@ -1,7 +1,8 @@
-import { Either, right } from "src/errors/either/either";
+import { Either, left, right } from "src/errors/either/either";
 import { ProductRepository } from "../repository/product.repository";
 import Product from "../entity/product.entity";
 import Price from "src/core/value-object/price";
+import { BadRequestException } from "@nestjs/common";
 
 type Request = {
     name: string;
@@ -11,7 +12,7 @@ type Request = {
     promotion: boolean;
 }
 
-type Response = Either<null, Product>
+type Response = Either<BadRequestException, Product>
 
 export class CreateProduct {
     constructor(private productRepository: ProductRepository) { }
@@ -27,6 +28,10 @@ export class CreateProduct {
                 promotion
             }
         )
+
+        if (!product) {
+            return left(new BadRequestException())
+        }
 
         await this.productRepository.create(product);
 

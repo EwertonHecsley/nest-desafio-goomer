@@ -21,4 +21,14 @@ export class ProductPrismaRepository implements ProductRepository {
 
         return productsDatabase.map(ProductPrismaMapper.toDomain);
     }
+
+    async findById(id: string): Promise<Product | null> {
+        const productDatabase = await this.prismaService.product.findUnique({ where: { id } });
+
+        if (!productDatabase) {
+            return null;
+        }
+
+        return ProductPrismaMapper.toDomain(productDatabase);
+    }
 }
