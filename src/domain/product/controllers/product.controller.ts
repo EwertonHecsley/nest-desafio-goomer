@@ -85,7 +85,11 @@ export class ProductController {
     @Delete(":id")
     async deleteById(@Param('id') id: string, @Res() response: Response) {
         try {
-            await this.deleteService.execute({ id });
+            const result = await this.deleteService.execute({ id });
+
+            if (result.isLeft()) {
+                throw new HttpException(404, result.value.message);
+            }
 
             return response.status(HttpStatus.NO_CONTENT).json();
 

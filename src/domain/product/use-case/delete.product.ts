@@ -6,7 +6,7 @@ type Request = {
     id: string
 }
 
-type Response = void | HttpException
+type Response = Either<HttpException, boolean>
 
 export class DeleteProduct {
     constructor(private productRepository: ProductRepository) { }
@@ -15,9 +15,11 @@ export class DeleteProduct {
         const product = await this.productRepository.findById(id);
 
         if (!product) {
-            throw new HttpException(404, "Product Not Found");
+            return left(new HttpException(404, "Product Not Found"));
         }
 
-        return await this.productRepository.destroy(id);
+        await this.productRepository.destroy(id);
+
+        return right(true);
     }
 }
