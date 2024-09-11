@@ -6,6 +6,7 @@ import { ListProducts } from './use-case/list.products';
 import { CreateProduct } from './use-case/create.product';
 import { FindById } from './use-case/findById.product';
 import { DeleteProduct } from './use-case/delete.product';
+import { UpdateProduct } from './use-case/update.product';
 
 @Module({
   imports: [PrismaModule],
@@ -43,6 +44,15 @@ import { DeleteProduct } from './use-case/delete.product';
         productRepository: ProductRepository
       ) => {
         return new DeleteProduct(productRepository);
+      },
+      inject: [ProductRepository]
+    },
+    {
+      provide: UpdateProduct,
+      useFactory: (
+        productRepository: ProductRepository
+      ) => {
+        return new UpdateProduct(productRepository);
       },
       inject: [ProductRepository]
     }

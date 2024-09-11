@@ -5,4 +5,5 @@ export abstract class ProductRepository {
     abstract listAll(): Promise<Product[]>;
     abstract findById(id: string): Promise<Product | null>;
     abstract destroy(id: string): Promise<void>;
+    abstract update(id: string, product: Product): Promise<Product | null>
 }

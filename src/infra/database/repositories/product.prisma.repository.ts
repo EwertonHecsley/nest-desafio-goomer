@@ -41,4 +41,21 @@ export class ProductPrismaRepository implements ProductRepository {
 
         await this.prismaService.product.delete({ where: { id } });
     }
+
+    async update(id: string, product: Product): Promise<Product | null> {
+        const productDatabase = await this.prismaService.product.findFirst({ where: { id } });
+
+        if (!productDatabase) {
+            return null;
+        }
+
+        const productUpdated = await this.prismaService.product.update(
+            {
+                where: { id },
+                data: ProductPrismaMapper.toDatabase(product)
+            }
+        )
+
+        return ProductPrismaMapper.toDomain(productUpdated);
+    }
 }
