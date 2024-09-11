@@ -9,6 +9,7 @@ import { HttpException } from 'src/errors/generic.httpException';
 import { DeleteProduct } from '../use-case/delete.product';
 import { UpdateProduct } from '../use-case/update.product';
 import Product from '../entity/product.entity';
+import { UpdateProductDto } from '../dto/update.product.dto';
 
 @Controller('product')
 export class ProductController {
@@ -86,7 +87,8 @@ export class ProductController {
     }
 
     @Put(":id")
-    async updateById(@Param('id') id: string, @Body() dataBody: Product, @Res() response: Response) {
+    async updateById(@Param('id') id: string, @Body() dataBody: UpdateProductDto, @Res() response: Response) {
+
         try {
             const result = await this.updateService.execute({ id, product: dataBody });
 
@@ -94,7 +96,7 @@ export class ProductController {
                 throw result.value;
             }
 
-            return response.status(HttpStatus.OK).json(ProductPresenter.toHttp(result.value));
+            return response.status(HttpStatus.NO_CONTENT).json();
 
         } catch (error) {
             if (error instanceof HttpException) {

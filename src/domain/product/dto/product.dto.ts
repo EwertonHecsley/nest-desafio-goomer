@@ -1,4 +1,5 @@
-import { IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
+import { IsBoolean, IsInstance, IsNotEmpty, IsNumber, IsObject, IsOptional, IsString } from "class-validator";
+import Identity from "src/core/entities/identity.generic";
 
 export class ProductDto {
 
@@ -21,4 +22,13 @@ export class ProductDto {
     @IsBoolean()
     @IsNotEmpty({ message: "Promotion is required, true or false" })
     promotion: boolean;
+
+    @IsOptional()
+    entityId?: Identity; // Supondo que Identity é um tipo válido em seu projeto
+
+    @IsOptional()
+    attributes?: any;
+
+    @IsOptional()
+    id?: string;
 }
