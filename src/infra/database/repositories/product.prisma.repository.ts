@@ -21,4 +21,41 @@ export class ProductPrismaRepository implements ProductRepository {
 
         return productsDatabase.map(ProductPrismaMapper.toDomain);
     }
+
+    async findById(id: string): Promise<Product | null> {
+        const productDatabase = await this.prismaService.product.findUnique({ where: { id } });
+
+        if (!productDatabase) {
+            return null;
+        }
+
+        return ProductPrismaMapper.toDomain(productDatabase);
+    }
+
+    async destroy(id: string): Promise<void | null> {
+        const productDatabase = await this.prismaService.product.findFirst({ where: { id } });
+
+        if (!productDatabase) {
+            return null;
+        }
+
+        await this.prismaService.product.delete({ where: { id } });
+    }
+
+    async update(id: string, product: Product): Promise<Product | null> {
+        const productDatabase = await this.prismaService.product.findFirst({ where: { id } });
+
+        if (!productDatabase) {
+            return null;
+        }
+
+        const productUpdated = await this.prismaService.product.update(
+            {
+                where: { id },
+                data: ProductPrismaMapper.toDatabase(product)
+            }
+        )
+
+        return ProductPrismaMapper.toDomain(productUpdated);
+    }
 }
