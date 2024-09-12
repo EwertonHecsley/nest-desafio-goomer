@@ -8,7 +8,6 @@ import { FindById } from '../use-case/findById.product';
 import { HttpException } from 'src/errors/generic.httpException';
 import { DeleteProduct } from '../use-case/delete.product';
 import { UpdateProduct } from '../use-case/update.product';
-import Product from '../entity/product.entity';
 import { UpdateProductDto } from '../dto/update.product.dto';
 
 @Controller('product')
