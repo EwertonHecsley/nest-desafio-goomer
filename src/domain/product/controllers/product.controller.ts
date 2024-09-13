@@ -50,6 +50,7 @@ export class ProductController {
             }
 
             const products = result.value.map(product => ProductPresenter.toHttp(product));
+
             return response.status(HttpStatus.OK).json(products);
         } catch (error) {
 

@@ -3,6 +3,7 @@ import { RestaurantController } from './controllers/restaurant.controller';
 import { PrismaModule } from 'src/infra/database/prisma/prisma.module';
 import { CreateRestaurant } from './use-case/create.restaurant';
 import { RestaurantRepository } from './repository/restaurant.repository';
+import { ListRestaurant } from './use-case/list.restaurant';
 
 @Module({
     imports: [PrismaModule],
@@ -12,7 +13,16 @@ import { RestaurantRepository } from './repository/restaurant.repository';
             useFactory: (
                 restaurantRepository: RestaurantRepository
             ) => {
-                new CreateRestaurant(restaurantRepository)
+                return new CreateRestaurant(restaurantRepository)
+            },
+            inject: [RestaurantRepository]
+        },
+        {
+            provide: ListRestaurant,
+            useFactory: (
+                restaurantRepository: RestaurantRepository
+            ) => {
+                return new ListRestaurant(restaurantRepository)
             },
             inject: [RestaurantRepository]
         }

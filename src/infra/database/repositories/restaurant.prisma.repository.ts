@@ -15,4 +15,10 @@ export class RestaurantPrismaRepository implements RestaurantRepository {
 
         return RestaurantPrismaMapper.toDomain(restaurantData);
     }
+
+    async listAll(): Promise<Restaurant[]> {
+        const productsDatabase = await this.prismaService.restaurant.findMany();
+
+        return productsDatabase.map(RestaurantPrismaMapper.toDomain);
+    }
 }

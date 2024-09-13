@@ -16,6 +16,7 @@ export class CreateRestaurant {
     constructor(private RestaurantRepository: RestaurantRepository) { }
 
     async execute({ name, address, image, openningHours }: Request): Promise<Response> {
+
         const restaurant = Restaurant.create(
             {
                 name,
