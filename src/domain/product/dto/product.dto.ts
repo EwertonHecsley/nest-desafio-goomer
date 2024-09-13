@@ -24,7 +24,7 @@ export class ProductDto {
     promotion: boolean;
 
     @IsOptional()
-    entityId?: Identity; // Supondo que Identity é um tipo válido em seu projeto
+    entityId?: Identity;
 
     @IsOptional()
     attributes?: any;
