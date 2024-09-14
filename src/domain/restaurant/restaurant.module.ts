@@ -4,6 +4,7 @@ import { PrismaModule } from 'src/infra/database/prisma/prisma.module';
 import { CreateRestaurant } from './use-case/create.restaurant';
 import { RestaurantRepository } from './repository/restaurant.repository';
 import { ListRestaurant } from './use-case/list.restaurant';
+import { FindByIdRestaurant } from './use-case/findById.restaurant';
 
 @Module({
     imports: [PrismaModule],
@@ -23,6 +24,15 @@ import { ListRestaurant } from './use-case/list.restaurant';
                 restaurantRepository: RestaurantRepository
             ) => {
                 return new ListRestaurant(restaurantRepository)
+            },
+            inject: [RestaurantRepository]
+        },
+        {
+            provide: FindByIdRestaurant,
+            useFactory: (
+                restaurantRepository: RestaurantRepository
+            ) => {
+                return new FindByIdRestaurant(restaurantRepository)
             },
             inject: [RestaurantRepository]
         }
