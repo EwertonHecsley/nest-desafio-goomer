@@ -1,73 +1,61 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Gestão de Produtos e Restaurantes
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Descrição
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Este projeto é uma aplicação de gestão de produtos e restaurantes, desenvolvida utilizando o framework NestJS para Node.js. A aplicação segue os princípios do Domain-Driven Design (DDD), utilizando métodos do tipo `Either` nos casos de uso para gerenciar erros de forma clara e eficiente. O Prisma é utilizado como ORM para interação com o banco de dados, facilitando o mapeamento objeto-relacional e a execução de consultas. Este projeto foi inspirado no desafio proposto pela Goomer, que serviu como base para a criação de uma solução robusta e escalável.
 
-## Description
+## Funcionalidades
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+### Produto
 
-## Installation
+- **Criação de Produto**: Endpoint `POST /product` para criar novos produtos.
+- **Listagem de Produtos**: Endpoint `GET /product` para listar todos os produtos.
+- **Consulta de Produto por ID**: Endpoint `GET /product/:id` para consultar um produto específico.
+- **Atualização de Produto**: Endpoint `PUT /product/:id` para atualizar um produto existente.
+- **Deleção de Produto**: Endpoint `DELETE /product/:id` para deletar um produto.
 
-```bash
-$ npm install
-```
+### Restaurante
 
-## Running the app
+- **Criação de Restaurante**: Endpoint `POST /restaurant` para criar novos restaurantes.
+- **Listagem de Restaurantes**: Endpoint `GET /restaurant` para listar todos os restaurantes.
+- **Consulta de Restaurante por ID**: Endpoint `GET /restaurant/:id` para consultar um restaurante específico.
 
-```bash
-# development
-$ npm run start
+## Pré-requisitos
 
-# watch mode
-$ npm run start:dev
+- Node.js instalado
+- Prisma ORM configurado para o seu banco de dados
+- Familiaridade com o framework NestJS
 
-# production mode
-$ npm run start:prod
-```
+## Instalação
 
-## Test
+1. Clone o repositório.
+2. Instale as dependências com `npm install`.
+3. Configure o Prisma ORM de acordo com o seu banco de dados.
+4. Execute as migrations com `npx prisma migrate dev`.
+5. Execute a aplicação com `npm run start`.
 
-```bash
-# unit tests
-$ npm run test
+## Como usar
 
-# e2e tests
-$ npm run test:e2e
+Para usar a aplicação, siga os passos acima na seção de instalação. Utilize ferramentas de API REST, como Postman ou Insomnia, para interagir com os endpoints.
 
-# test coverage
-$ npm run test:cov
-```
+## Contribuição
 
-## Support
+Contribuições são bem-vindas! Sinta-se à vontade para abrir uma issue ou enviar um pull request.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## Licença
 
-## Stay in touch
+Este projeto é licenciado sob a licença MIT.
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+## Autores
 
-## License
+- Ewerton Hecsley Martins Nunes
 
-Nest is [MIT licensed](LICENSE).
+## Contato
+
+- 📧 E-mail: [ewerton.martinscomercial@gmail.com](mailto:ewerton.martinscomercial@gmail.com)
+- 🔗 LinkedIn: [Ewerton Hecsley](https://www.linkedin.com/in/ewerton-hecsley-8a613992/)
+
+## Versão
+
+- 1.0.0
+
