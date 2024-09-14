@@ -21,4 +21,14 @@ export class RestaurantPrismaRepository implements RestaurantRepository {
 
         return productsDatabase.map(RestaurantPrismaMapper.toDomain);
     }
+
+    async findById(id: string): Promise<Restaurant | null> {
+        const restaurantDatabase = await this.prismaService.restaurant.findFirst({ where: { id } });
+
+        if (!restaurantDatabase) {
+            return null;
+        }
+
+        return RestaurantPrismaMapper.toDomain(restaurantDatabase);
+    }
 }
